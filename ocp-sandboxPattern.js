@@ -12,7 +12,7 @@ function Sandbox(){
         //turn arguments into an array
     var args=Array.prototype.slice.call(arguments),
         //last argument is the callback
-        callback=args.pop(),//
+        callback=args.pop(),//Array pop method strips and returns last array element
         //modules can be passed as an array or as individual parameters
         modules=(args[0]&&typeof args[0]==='string')?args:args[0],
         i;
