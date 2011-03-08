@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html lang="eng-US">
+<head>
+    <title>Testing Page</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<script src="ocp-sandboxPattern.js"></script>
+<script>
+
+    
+Sandbox.modules={};
+Sandbox.modules.tester=function(sandbox){
+    sandbox.val='test';
+    sandbox.announceValue=function(){
+        alert(sandbox.val);
+    };
+}
+
+
+Sandbox(function(box){
+
+    //working space...
+
+    console.log(box.announceValue);
+});
+</script>
+</body>
+</html>
