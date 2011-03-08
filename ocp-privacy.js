@@ -58,7 +58,7 @@ Gadget2.prototype=(function(){
     };
 }());
 
-//Revealing private functions as public methods (external clobbering does not affect internal functionality)
+//Revealing private functions as public methods (external clobbering doesn't affect internal functionality) "Revelation"
 Gadget3.prototype=(function(){
     var first=function(){
             return 'Alex';
