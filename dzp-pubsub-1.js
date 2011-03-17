@@ -9,8 +9,8 @@
 //Methods above need a type parameter so that subscribers can subscribe to only a subset of events
 //As the members are generic to all publishers, they are implemented in a stand-alone abject then mixed-in as needed
 
-var observer={
-    genericPublisher:{
+var pubsub={
+    publisher:{
         subscribers:{
             any:[]//default catcher
         },
@@ -46,13 +46,12 @@ var observer={
             }
         }
     },
-    
     //function for turning an object into a publisher through mix-in of generic publisher's methods
     makePublisher:function(o){
         var i;
-        for(i in this.genericPublisher){
-            if(this.genericPublisher.hasOwnProperty(i)&&typeof this.genericPublisher[i]==='function'){
-                o[i]=this.genericPublisher[i];
+        for(i in this.publisher){
+            if(this.publisher.hasOwnProperty(i)&&typeof this.publisher[i]==='function'){
+                o[i]=this.publisher[i];
             }
         }
         o.subscribers={
@@ -66,7 +65,7 @@ var observer={
 //implement the paper object
 //This object declares both what it will publish, and who will subscribe
 var paper={};
-observer.makePublisher(paper);//make paper object a publisher (give it the core publish and subscribe methods, with others)
+pubsub.makePublisher(paper);//make paper object a publisher (give it the core publish and subscribe methods, with others)
 paper.daily=function(){
     this.publish('big news today');//publish mix-in loops through subscribers + fires methods they gave on subscribing with 'big news today' (in this case) as method argument
 };
