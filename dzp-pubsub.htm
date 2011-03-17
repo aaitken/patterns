@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html lang="eng-US">
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <script src="dzp-pubsub-include.js"></script>
+</head>
+<body>
+
+<div id="divOne" style="background:#eee">div one</div>
+<div id="divTwo" style="background:#ddd">div two</div>
+<button id="btnOne">button one</button>
+<button id="btnTwo">button one</button>
+
+<script>
+
+//CAVEAT - by definition, browser events such as clicks, hovers, etc are native examples of this pattern.
+//code below is a little redundant as it re-treats browser click
+//pubsub is really for custom events
+
+pubsub.makePublisher(document);
+document.addEventListener('click',function(e){
+    this.publish(e,'click');
+});
+
+document.getElementById('divTwo').fillFunction=function(e){
+    alert(this);
+}
+
+var handler={
+    fill:function(e){
+        if(e.target.id==='btnOne'){
+            document.getElementById('divOne').innerHTML='button one clicked!';
+        }
+    }
+};
+
+var divComponent={};
+divComponent.div=document.getElementById('divTwo');
+divComponent.fillYes=function(e){
+    if(e.target.id==='btnTwo'){
+        alert(this);//this loses its reference to divComponent object in the pubsub model
+        divComponent.div.innerHTML='button two clicked!';
+    }
+};
+
+document.subscribe(handler.fill,'click');
+document.subscribe(divComponent.fillYes,'click');
+</script>
+</body>
+</html>
